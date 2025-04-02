@@ -15,135 +15,70 @@ st.set_page_config(
 if 'theme' not in st.session_state:
     st.session_state.theme = 'light'
 
-# Apply the current theme's CSS
+# Apply the current theme's CSS - SIMPLIFIED HIGH CONTRAST DARK MODE
 if st.session_state.theme == 'dark':
     st.markdown("""
     <style>
+    /* Main background and text */
     .stApp {
-        background-color: #121212;
-        color: #E0E0E0;
+        background-color: #000000;
     }
     
-    /* Inputs with better contrast */
+    /* ALL TEXT ELEMENTS - MAXIMUM CONTRAST */
+    p, div, span, label, h1, h2, h3, h4, h5, h6, li, td, th {
+        color: #FFFFFF !important;
+        font-weight: 500 !important;
+    }
+    
+    /* INPUTS - BRIGHTER WITH BETTER CONTRAST */
     .stTextInput > div > div > input {
-        background-color: #2C2C2C;
-        color: #FFFFFF;
-        border: 1px solid #444444;
+        background-color: #333333 !important;
+        color: #FFFFFF !important;
+        border: 2px solid #FFFFFF !important;
+        font-weight: bold !important;
     }
     
-    /* Make buttons more visible */
-    .stButton>button {
-        background-color: #2979FF;
-        color: #FFFFFF;
-        font-weight: 500;
+    /* BUTTONS - HIGH VISIBILITY */
+    .stButton > button {
+        background-color: #0078FF !important;
+        color: #FFFFFF !important;
+        font-weight: bold !important;
+        border: 2px solid #FFFFFF !important;
     }
     
-    /* Hover effect for buttons */
-    .stButton>button:hover {
-        background-color: #2196F3;
-        border: 1px solid #90CAF9;
+    /* SIDEBAR - BETTER VISIBILITY */
+    [data-testid="stSidebar"] {
+        background-color: #111111 !important;
     }
     
-    /* Better form background */
-    .stForm {
-        background-color: #1E1E1E;
-        border-radius: 10px;
-        padding: 15px;
-        border: 1px solid #333333;
+    /* ALL ALERT BOXES - MAXIMUM CONTRAST */
+    div.stAlert > div {
+        background-color: #333333 !important;
+        color: #FFFFFF !important;
+        border: 2px solid #FFFFFF !important;
+        font-weight: bold !important;
     }
     
-    /* Improve tabs visibility */
+    /* TABS - HIGH CONTRAST */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        background-color: #1A1A1A;
-        padding: 5px;
-        border-radius: 5px;
+        background-color: #111111 !important;
     }
     
     .stTabs [data-baseweb="tab"] {
-        background-color: #333333;
-        color: #FFFFFF;
-        border-radius: 4px 4px 0px 0px;
-        font-weight: 500;
+        background-color: #333333 !important;
+        color: #FFFFFF !important;
+        font-weight: bold !important;
     }
     
     .stTabs [aria-selected="true"] {
-        background-color: #2979FF;
+        background-color: #0078FF !important;
+        border: 2px solid #FFFFFF !important;
     }
     
-    /* Improve sidebar appearance */
-    div[data-testid="stSidebar"] {
-        background-color: #1A1A1A;
-        border-right: 1px solid #333333;
-    }
-    
-    [data-testid="stSidebarUserContent"] {
-        color: #FFFFFF;
-    }
-    
-    /* Improve alerts and info boxes */
-    div.stAlert > div {
-        color: #FFFFFF;
-        border: 1px solid #444444;
-    }
-    
-    div.stAlert[data-baseweb="notification"] {
-        background-color: #1E1E1E;
-    }
-    
-    /* Success alert with better colors */
-    div[data-baseweb="notification"][kind="success"] {
-        background-color: #0D47A1;
-        color: #FFFFFF;
-    }
-    
-    /* Info alert with better colors */
-    div[data-baseweb="notification"][kind="info"] {
-        background-color: #01579B;
-        color: #FFFFFF;
-    }
-    
-    /* Warning alert with better colors */
-    div[data-baseweb="notification"][kind="warning"] {
-        background-color: #E65100;
-        color: #FFFFFF;
-    }
-    
-    /* Error alert with better colors */
-    div[data-baseweb="notification"][kind="negative"] {
-        background-color: #B71C1C;
-        color: #FFFFFF;
-    }
-    
-    /* Headings with more contrast */
-    h1, h2, h3, h4, h5, h6 {
-        color: #FFFFFF !important;
-        font-weight: 600 !important;
-    }
-    
-    /* Regular text with better legibility */
-    p, span, div {
-        color: #E0E0E0;
-    }
-    
-    /* Markdown content */
-    .stMarkdown {
-        color: #E0E0E0;
-    }
-    
-    /* Category tags styling */
-    .category-tag {
-        display: inline-block;
-        padding: 5px 10px;
-        border-radius: 15px;
-        font-weight: bold;
-        margin: 2px;
-        color: white;
-    }
-    
-    /* Better footer/caption text */
-    .css-eh5xgm, .css-1vbkxwb {
-        color: #9E9E9E;
+    /* Form with visible border */
+    .stForm {
+        border: 2px solid #FFFFFF !important;
+        padding: 20px !important;
     }
     </style>
     """, unsafe_allow_html=True)
