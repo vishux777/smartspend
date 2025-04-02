@@ -1,2 +1,2 @@
 #!/bin/bash
-streamlit run streamlit_app.py --server.port=5000 --server.address=0.0.0.0
+streamlit run streamlit_app.py --server.enableCORS=false --server.enableXsrfProtection=false --server.port=8501
