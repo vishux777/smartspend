@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSpend - Expense Categorization</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <div class="logo">💰</div>
+                <h1>SmartSpend</h1>
+            </div>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="categorize">💵 Categorize Expense</button>
+                <button class="tab-btn" data-tab="query">❓ Finance Questions</button>
+            </div>
+
+            <!-- Categorize Tab Content -->
+            <div class="tab-content active" id="categorize-tab">
+                <div class="card">
+                    <h2>Expense Categorization</h2>
+                    <p>Enter the description of your expense below to categorize it automatically.</p>
+                    
+                    <div class="examples">
+                        <h3>Examples:</h3>
+                        <div class="example-chips">
+                            <div class="chip" onclick="useExample('Coffee at Starbucks')">Coffee at Starbucks</div>
+                            <div class="chip" onclick="useExample('Uber ride to airport')">Uber ride to airport</div>
+                            <div class="chip" onclick="useExample('Rent payment for June')">Rent payment</div>
+                            <div class="chip" onclick="useExample('Netflix subscription')">Netflix subscription</div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="expense-input" placeholder="Enter expense description...">
+                        <button id="categorize-btn">Categorize</button>
+                    </div>
+                </div>
+                
+                <div id="chat-container" class="chat-container">
+                    <!-- Chat messages will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Query Tab Content -->
+            <div class="tab-content" id="query-tab">
+                <div class="card">
+                    <h2>Ask a Finance Question</h2>
+                    <p>Ask anything about personal finance, budgeting or expense management.</p>
+                    
+                    <div class="examples">
+                        <h3>Examples:</h3>
+                        <div class="example-chips">
+                            <div class="chip" onclick="useExample('How should I budget for travel?')">How to budget for travel?</div>
+                            <div class="chip" onclick="useExample('What is the 50/30/20 rule?')">What is the 50/30/20 rule?</div>
+                            <div class="chip" onclick="useExample('Tips for reducing monthly expenses')">Tips to reduce expenses</div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" id="query-input" placeholder="Ask a finance question...">
+                        <button id="query-btn">Ask</button>
+                    </div>
+                </div>
+                
+                <div id="query-chat-container" class="chat-container">
+                    <!-- Chat messages will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Chat History</h2>
+                <button id="reset-btn" title="Clear Chat">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            
+            <div id="history-container" class="history-container">
+                <!-- History items will be inserted here by JavaScript -->
+                <div class="empty-history">No chat history yet</div>
+            </div>
+            
+            <div class="api-status">
+                <div id="api-status-indicator" class="status-indicator"></div>
+                <span id="api-status-text">Checking API status...</span>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Toast for notifications -->
+    <div id="toast" class="toast"></div>
+
+    <!-- App scripts -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
