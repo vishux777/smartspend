@@ -11,121 +11,59 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for theme toggle and styles
-st.markdown("""
-<style>
-    /* Base styles */
+# Initialize theme in session state if not already initialized
+if 'theme' not in st.session_state:
+    st.session_state.theme = 'light'
+
+# Apply the current theme's CSS
+if st.session_state.theme == 'dark':
+    st.markdown("""
+    <style>
     .stApp {
-        transition: background-color 0.3s ease;
+        background-color: #1E1E1E;
+        color: #F0F0F0;
     }
-    
-    /* Theme toggle switch */
-    .theme-switch-container {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
+    .stTextInput > div > div > input {
+        background-color: #333333;
+        color: #F0F0F0;
     }
-    
-    .theme-switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
+    .stButton>button {
+        background-color: #4F4F4F;
+        color: #F0F0F0;
     }
-    
-    .theme-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
+    .stForm {
+        background-color: #2D2D2D;
+        border-radius: 10px;
+        padding: 10px;
     }
-    
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        transition: .4s;
-        border-radius: 34px;
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background-color: #333333;
     }
-    
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        transition: .4s;
-        border-radius: 50%;
+    .stTabs [data-baseweb="tab"] {
+        background-color: #444444;
+        color: #F0F0F0;
+        border-radius: 4px 4px 0px 0px;
     }
-    
-    input:checked + .slider {
-        background-color: #2196F3;
+    .stTabs [aria-selected="true"] {
+        background-color: #666666;
     }
-    
-    input:checked + .slider:before {
-        transform: translateX(26px);
+    .css-1hverof, .css-xq1lnh-EmotionIconBase {
+        color: #F0F0F0;
     }
-    
-    .theme-label {
-        margin-left: 10px;
-        font-weight: bold;
+    div[data-testid="stSidebar"] {
+        background-color: #252525;
+        border-right: 1px solid #3E3E3E;
     }
-    
-    /* Dark theme specific styles */
-    .dark-theme {
-        background-color: #262730;
-        color: #ffffff;
+    [data-testid="stSidebarUserContent"] {
+        color: #F0F0F0;
     }
-    
-    .dark-theme .stTextInput > div > div > input {
-        background-color: #3b3b3b;
-        color: white;
+    div.stAlert > div {
+        background-color: #333333;
+        color: #F0F0F0;
     }
-    
-    .dark-theme .stButton>button {
-        background-color: #4e4e4e;
-        color: white;
-    }
-</style>
-
-<script>
-    // Theme toggle functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        const themeSwitch = document.getElementById('themeSwitch');
-        const savedTheme = localStorage.getItem('theme');
-        
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            if (themeSwitch) themeSwitch.checked = true;
-        }
-        
-        if (themeSwitch) {
-            themeSwitch.addEventListener('change', function() {
-                if (this.checked) {
-                    document.body.classList.add('dark-theme');
-                    localStorage.setItem('theme', 'dark');
-                } else {
-                    document.body.classList.remove('dark-theme');
-                    localStorage.setItem('theme', 'light');
-                }
-            });
-        }
-    });
-</script>
-
-<div class="theme-switch-container">
-    <label class="theme-switch">
-        <input type="checkbox" id="themeSwitch">
-        <span class="slider"></span>
-    </label>
-    <span class="theme-label">🌙 Dark Mode</span>
-</div>
-""", unsafe_allow_html=True)
+    </style>
+    """, unsafe_allow_html=True)
 
 # Get API key from environment variable or Streamlit secrets
 MISTRAL_API_KEY = os.environ.get("MISTRAL_API_KEY", "")
@@ -235,12 +173,9 @@ def get_default_category(description):
 if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 
-# Alternative theme toggle using Streamlit's native components
-if 'theme' not in st.session_state:
-    st.session_state.theme = 'light'
-
 def toggle_theme():
-    st.session_state.theme = 'dark' if st.session_state.theme == 'light' else 'light'
+    # Toggle theme between light and dark
+    st.session_state.theme = 'light' if st.session_state.theme == 'dark' else 'dark'
     # Force a rerun to apply theme changes
     st.experimental_rerun()
 
@@ -250,12 +185,12 @@ def main():
         st.title("💰 SmartSpend")
         st.markdown("AI-powered expense categorization")
         
-        # Native theme toggle
+        # Theme toggle - ONE SIMPLE BUTTON
         current_theme = st.session_state.theme
-        theme_icon = "🌙" if current_theme == 'light' else "☀️"
-        theme_text = "Dark Mode" if current_theme == 'light' else "Light Mode"
+        icon = "🌙" if current_theme == 'light' else "☀️"
+        theme_label = "Dark Mode" if current_theme == 'light' else "Light Mode"
         
-        if st.button(f"{theme_icon} Switch to {theme_text}", key="theme_toggle", use_container_width=True):
+        if st.button(f"{icon} {theme_label}", key="theme_toggle", use_container_width=True):
             toggle_theme()
         
         st.markdown("---")
@@ -298,24 +233,6 @@ def main():
     # Main Content
     st.title("SmartSpend Assistant")
     st.markdown("AI-powered expense categorization to simplify your financial tracking")
-    
-    # Apply theme-based styles
-    if st.session_state.theme == 'dark':
-        st.markdown("""
-        <style>
-        .stApp {
-            background-color: #262730;
-            color: white;
-        }
-        .stTextInput, .stSelectbox {
-            background-color: #3b3b3b;
-        }
-        .stButton>button {
-            background-color: #4e4e4e;
-            color: white;
-        }
-        </style>
-        """, unsafe_allow_html=True)
     
     tab1, tab2 = st.tabs(["💬 Expense Categorization", "❓ Finance Questions"])
     
