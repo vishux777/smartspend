@@ -20,47 +20,130 @@ if st.session_state.theme == 'dark':
     st.markdown("""
     <style>
     .stApp {
-        background-color: #1E1E1E;
-        color: #F0F0F0;
+        background-color: #121212;
+        color: #E0E0E0;
     }
+    
+    /* Inputs with better contrast */
     .stTextInput > div > div > input {
-        background-color: #333333;
-        color: #F0F0F0;
+        background-color: #2C2C2C;
+        color: #FFFFFF;
+        border: 1px solid #444444;
     }
+    
+    /* Make buttons more visible */
     .stButton>button {
-        background-color: #4F4F4F;
-        color: #F0F0F0;
+        background-color: #2979FF;
+        color: #FFFFFF;
+        font-weight: 500;
     }
+    
+    /* Hover effect for buttons */
+    .stButton>button:hover {
+        background-color: #2196F3;
+        border: 1px solid #90CAF9;
+    }
+    
+    /* Better form background */
     .stForm {
-        background-color: #2D2D2D;
+        background-color: #1E1E1E;
         border-radius: 10px;
-        padding: 10px;
+        padding: 15px;
+        border: 1px solid #333333;
     }
+    
+    /* Improve tabs visibility */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        background-color: #333333;
+        background-color: #1A1A1A;
+        padding: 5px;
+        border-radius: 5px;
     }
+    
     .stTabs [data-baseweb="tab"] {
-        background-color: #444444;
-        color: #F0F0F0;
-        border-radius: 4px 4px 0px 0px;
-    }
-    .stTabs [aria-selected="true"] {
-        background-color: #666666;
-    }
-    .css-1hverof, .css-xq1lnh-EmotionIconBase {
-        color: #F0F0F0;
-    }
-    div[data-testid="stSidebar"] {
-        background-color: #252525;
-        border-right: 1px solid #3E3E3E;
-    }
-    [data-testid="stSidebarUserContent"] {
-        color: #F0F0F0;
-    }
-    div.stAlert > div {
         background-color: #333333;
-        color: #F0F0F0;
+        color: #FFFFFF;
+        border-radius: 4px 4px 0px 0px;
+        font-weight: 500;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background-color: #2979FF;
+    }
+    
+    /* Improve sidebar appearance */
+    div[data-testid="stSidebar"] {
+        background-color: #1A1A1A;
+        border-right: 1px solid #333333;
+    }
+    
+    [data-testid="stSidebarUserContent"] {
+        color: #FFFFFF;
+    }
+    
+    /* Improve alerts and info boxes */
+    div.stAlert > div {
+        color: #FFFFFF;
+        border: 1px solid #444444;
+    }
+    
+    div.stAlert[data-baseweb="notification"] {
+        background-color: #1E1E1E;
+    }
+    
+    /* Success alert with better colors */
+    div[data-baseweb="notification"][kind="success"] {
+        background-color: #0D47A1;
+        color: #FFFFFF;
+    }
+    
+    /* Info alert with better colors */
+    div[data-baseweb="notification"][kind="info"] {
+        background-color: #01579B;
+        color: #FFFFFF;
+    }
+    
+    /* Warning alert with better colors */
+    div[data-baseweb="notification"][kind="warning"] {
+        background-color: #E65100;
+        color: #FFFFFF;
+    }
+    
+    /* Error alert with better colors */
+    div[data-baseweb="notification"][kind="negative"] {
+        background-color: #B71C1C;
+        color: #FFFFFF;
+    }
+    
+    /* Headings with more contrast */
+    h1, h2, h3, h4, h5, h6 {
+        color: #FFFFFF !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Regular text with better legibility */
+    p, span, div {
+        color: #E0E0E0;
+    }
+    
+    /* Markdown content */
+    .stMarkdown {
+        color: #E0E0E0;
+    }
+    
+    /* Category tags styling */
+    .category-tag {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-weight: bold;
+        margin: 2px;
+        color: white;
+    }
+    
+    /* Better footer/caption text */
+    .css-eh5xgm, .css-1vbkxwb {
+        color: #9E9E9E;
     }
     </style>
     """, unsafe_allow_html=True)
