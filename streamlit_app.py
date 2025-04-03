@@ -11,6 +11,78 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Initialize theme in session state if not already initialized
+if 'theme' not in st.session_state:
+    st.session_state.theme = 'light'
+
+# Apply the current theme's CSS - SIMPLIFIED HIGH CONTRAST DARK MODE
+if st.session_state.theme == 'dark':
+    st.markdown("""
+    <style>
+    /* Main background and text */
+    .stApp {
+        background-color: #000000;
+    }
+    
+    /* ALL TEXT ELEMENTS - MAXIMUM CONTRAST */
+    p, div, span, label, h1, h2, h3, h4, h5, h6, li, td, th {
+        color: #FFFFFF !important;
+        font-weight: 500 !important;
+    }
+    
+    /* INPUTS - BRIGHTER WITH BETTER CONTRAST */
+    .stTextInput > div > div > input {
+        background-color: #333333 !important;
+        color: #FFFFFF !important;
+        border: 2px solid #FFFFFF !important;
+        font-weight: bold !important;
+    }
+    
+    /* BUTTONS - HIGH VISIBILITY */
+    .stButton > button {
+        background-color: #0078FF !important;
+        color: #FFFFFF !important;
+        font-weight: bold !important;
+        border: 2px solid #FFFFFF !important;
+    }
+    
+    /* SIDEBAR - BETTER VISIBILITY */
+    [data-testid="stSidebar"] {
+        background-color: #111111 !important;
+    }
+    
+    /* ALL ALERT BOXES - MAXIMUM CONTRAST */
+    div.stAlert > div {
+        background-color: #333333 !important;
+        color: #FFFFFF !important;
+        border: 2px solid #FFFFFF !important;
+        font-weight: bold !important;
+    }
+    
+    /* TABS - HIGH CONTRAST */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: #111111 !important;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background-color: #333333 !important;
+        color: #FFFFFF !important;
+        font-weight: bold !important;
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background-color: #0078FF !important;
+        border: 2px solid #FFFFFF !important;
+    }
+    
+    /* Form with visible border */
+    .stForm {
+        border: 2px solid #FFFFFF !important;
+        padding: 20px !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Get API key from environment variable or Streamlit secrets
 MISTRAL_API_KEY = os.environ.get("MISTRAL_API_KEY", "")
 
@@ -119,11 +191,25 @@ def get_default_category(description):
 if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
 
+def toggle_theme():
+    # Toggle theme between light and dark
+    st.session_state.theme = 'light' if st.session_state.theme == 'dark' else 'dark'
+    # Force a rerun to apply theme changes
+    st.experimental_rerun()
+
 def main():
     # Sidebar
     with st.sidebar:
         st.title("💰 SmartSpend")
         st.markdown("AI-powered expense categorization")
+        
+        # Theme toggle - ONE SIMPLE BUTTON
+        current_theme = st.session_state.theme
+        icon = "🌙" if current_theme == 'light' else "☀️"
+        theme_label = "Dark Mode" if current_theme == 'light' else "Light Mode"
+        
+        if st.button(f"{icon} {theme_label}", key="theme_toggle", use_container_width=True):
+            toggle_theme()
         
         st.markdown("---")
         
@@ -160,7 +246,7 @@ def main():
         
         # Credits
         st.markdown("---")
-        st.caption("© 2025 SmartSpend")
+        st.caption("© 2025 SmartSpend #Created by VDA GROUP. Vishwas - 12306388 \n ; Vikram Singh - 12324502 \n Debaprakash Jena - 12316470")
 
     # Main Content
     st.title("SmartSpend Assistant")
@@ -202,13 +288,13 @@ def main():
         # Process categorization
         if submit_expense and expense_desc:
             # Categorize
-            category = get_default_category(expense_desc)  # Using default categorization for simplicity
+            category = get_category_from_mistral(expense_desc)
             
             # Display result
             st.success(f"Expense: {expense_desc}")
             st.info(f"Category: {category}")
             
-            # Add to history for demonstration
+            # Add to history
             st.session_state.chat_history.append({
                 "question": expense_desc,
                 "answer": category,
@@ -248,14 +334,14 @@ def main():
         
         # Process query
         if submit_query and query:
-            # Get response (simplified for demonstration)
-            response = "To manage your finances effectively, track your expenses regularly and categorize them to understand spending patterns. Create a budget and stick to it, prioritizing needs over wants."
+            # Get response
+            response = get_query_response(query)
             
             # Display result
             st.success(f"Question: {query}")
             st.info(f"Answer: {response}")
             
-            # Add to history for demonstration
+            # Add to history
             st.session_state.chat_history.append({
                 "question": query,
                 "answer": response,
