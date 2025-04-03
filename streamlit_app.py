@@ -15,70 +15,173 @@ st.set_page_config(
 if 'theme' not in st.session_state:
     st.session_state.theme = 'light'
 
-# Apply the current theme's CSS - SIMPLIFIED HIGH CONTRAST DARK MODE
+# Apply custom theme CSS
 if st.session_state.theme == 'dark':
     st.markdown("""
     <style>
-    /* Main background and text */
+    /* MAIN BACKGROUND - Rich deep blue gradient with improved readability */
     .stApp {
-        background-color: #000000;
+        background: linear-gradient(140deg, #0f172a 0%, #1e293b 100%);
     }
     
-    /* ALL TEXT ELEMENTS - MAXIMUM CONTRAST */
-    p, div, span, label, h1, h2, h3, h4, h5, h6, li, td, th {
-        color: #FFFFFF !important;
+    /* TEXT ELEMENTS - High contrast for better readability */
+    p, div, span, label, li, td, th {
+        color: rgba(255, 255, 255, 0.95) !important;
+        font-weight: 400 !important;
+    }
+    
+    /* HEADINGS - Bold, clear hierarchy with subtle glow */
+    h1 {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+        letter-spacing: 0.5px;
+    }
+    
+    h2, h3 {
+        color: #f8fafc !important;
+        font-weight: 600 !important;
+        text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    h4, h5, h6 {
+        color: #f1f5f9 !important;
         font-weight: 500 !important;
     }
     
-    /* INPUTS - BRIGHTER WITH BETTER CONTRAST */
+    /* LINKS - Vibrant and clearly visible */
+    a {
+        color: #38bdf8 !important;
+        text-decoration: none !important;
+        font-weight: 500 !important;
+    }
+    
+    a:hover {
+        color: #0ea5e9 !important;
+        text-decoration: underline !important;
+    }
+    
+    /* INPUTS - Enhanced contrast with glowing focus state */
     .stTextInput > div > div > input {
-        background-color: #333333 !important;
-        color: #FFFFFF !important;
-        border: 2px solid #FFFFFF !important;
-        font-weight: bold !important;
+        background-color: #1e293b !important;
+        color: white !important;
+        border: 1px solid rgba(148, 163, 184, 0.3) !important;
+        border-radius: 6px !important;
+        padding: 10px 14px !important;
+        font-size: 16px !important;
+        transition: all 0.2s ease !important;
     }
     
-    /* BUTTONS - HIGH VISIBILITY */
+    .stTextInput > div > div > input:focus {
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3) !important;
+        background-color: #0f172a !important;
+    }
+    
+    /* BUTTONS - Bold gradient with enhanced hover effect */
     .stButton > button {
-        background-color: #0078FF !important;
-        color: #FFFFFF !important;
-        font-weight: bold !important;
-        border: 2px solid #FFFFFF !important;
+        background: linear-gradient(to right, #0284c7, #38bdf8) !important;
+        color: white !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.3px !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: 8px 16px !important;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1) !important;
     }
     
-    /* SIDEBAR - BETTER VISIBILITY */
+    .stButton > button:hover {
+        box-shadow: 0 6px 12px -1px rgba(0, 0, 0, 0.25), 0 3px 6px -1px rgba(0, 0, 0, 0.15) !important;
+        transform: translateY(-2px) !important;
+        background: linear-gradient(to right, #0369a1, #0284c7) !important;
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0px) !important;
+        box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 2px -1px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* SIDEBAR - Deep rich background with subtle border */
     [data-testid="stSidebar"] {
-        background-color: #111111 !important;
+        background-color: #0f172a !important;
+        border-right: 1px solid rgba(148, 163, 184, 0.2) !important;
     }
     
-    /* ALL ALERT BOXES - MAXIMUM CONTRAST */
+    /* Sidebar heading for better contrast */
+    [data-testid="stSidebar"] h1 {
+        color: #38bdf8 !important;
+    }
+    
+    /* Horizontal rule in sidebar */
+    [data-testid="stSidebar"] hr {
+        border-color: rgba(148, 163, 184, 0.2) !important;
+        margin: 24px 0 !important;
+    }
+    
+    /* ALERT BOXES - Enhanced visibility with clear borders */
     div.stAlert > div {
-        background-color: #333333 !important;
-        color: #FFFFFF !important;
-        border: 2px solid #FFFFFF !important;
-        font-weight: bold !important;
+        background-color: #1e293b !important;
+        color: white !important;
+        border: 1px solid rgba(148, 163, 184, 0.2) !important;
     }
     
-    /* TABS - HIGH CONTRAST */
+    /* Better scrollbars for dark mode */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #1e293b;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #475569;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+    }
+    
+    /* Category tags with vibrant color coding */
+    .category-tag {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+        margin-right: 6px;
+        background: rgba(56, 189, 248, 0.2);
+        color: #38bdf8;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    
+    /* Tab styling for dark mode */
     .stTabs [data-baseweb="tab-list"] {
-        background-color: #111111 !important;
+        gap: 1px;
+        background-color: #1e293b !important;
     }
     
     .stTabs [data-baseweb="tab"] {
-        background-color: #333333 !important;
-        color: #FFFFFF !important;
-        font-weight: bold !important;
+        background-color: #1e293b !important;
+        color: white !important;
+        border-radius: 4px 4px 0 0 !important;
+        margin-right: 2px !important;
+        padding: 10px 16px !important;
     }
     
     .stTabs [aria-selected="true"] {
-        background-color: #0078FF !important;
-        border: 2px solid #FFFFFF !important;
+        background-color: #2563eb !important;
+        color: white !important;
     }
     
-    /* Form with visible border */
-    .stForm {
-        border: 2px solid #FFFFFF !important;
+    /* Form styling for dark mode */
+    [data-testid="stForm"] {
+        background-color: #1e293b !important;
         padding: 20px !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(148, 163, 184, 0.2) !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -166,48 +269,71 @@ def get_query_response(query):
 def get_default_category(description):
     """Local fallback categorization when API is unavailable."""
     desc = description.lower()
-    if "restaurant" in desc or "food" in desc or "dinner" in desc or "lunch" in desc or "breakfast" in desc or "coffee" in desc:
+    
+    # Food and Dining
+    if any(keyword in desc for keyword in ["restaurant", "cafe", "coffee", "dinner", "lunch", "breakfast", "meal", "pizza", "burger", "food", "grocery", "groceries", "supermarket"]):
         return "food"
-    elif "uber" in desc or "taxi" in desc or "bus" in desc or "train" in desc or "gas" in desc or "car" in desc:
+    
+    # Transportation
+    if any(keyword in desc for keyword in ["uber", "lyft", "taxi", "car", "gas", "fuel", "bus", "train", "subway", "metro", "transportation", "flight", "airline", "toll"]):
         return "transportation"
-    elif "rent" in desc or "mortgage" in desc or "home" in desc:
+    
+    # Housing
+    if any(keyword in desc for keyword in ["rent", "mortgage", "apartment", "house", "housing", "property", "real estate", "condo", "maintenance", "repair", "furniture"]):
         return "housing"
-    elif "electricity" in desc or "water" in desc or "bill" in desc or "internet" in desc or "phone" in desc:
+    
+    # Utilities
+    if any(keyword in desc for keyword in ["electricity", "water", "gas", "internet", "wifi", "phone", "bill", "utility", "utilities", "cable", "subscription"]):
         return "utilities"
-    elif "movie" in desc or "netflix" in desc or "spotify" in desc or "concert" in desc or "game" in desc:
+    
+    # Entertainment
+    if any(keyword in desc for keyword in ["movie", "theater", "concert", "show", "netflix", "spotify", "music", "game", "entertainment", "party", "event", "streaming", "subscription"]):
         return "entertainment"
-    elif "amazon" in desc or "mall" in desc or "store" in desc or "buy" in desc or "purchase" in desc:
+    
+    # Shopping
+    if any(keyword in desc for keyword in ["clothing", "clothes", "shirt", "pants", "shoe", "amazon", "online shopping", "mall", "store", "purchase", "retail", "shopping"]):
         return "shopping"
-    elif "doctor" in desc or "medicine" in desc or "hospital" in desc or "health" in desc:
+    
+    # Travel
+    if any(keyword in desc for keyword in ["hotel", "airbnb", "vacation", "travel", "trip", "flight", "booking", "resort", "tourism"]):
+        return "travel"
+    
+    # Health
+    if any(keyword in desc for keyword in ["doctor", "medical", "medicine", "healthcare", "pharmacy", "prescription", "hospital", "dental", "gym", "fitness", "health"]):
         return "health"
-    elif "course" in desc or "book" in desc or "tuition" in desc or "class" in desc or "school" in desc:
+    
+    # Education
+    if any(keyword in desc for keyword in ["tuition", "school", "college", "university", "class", "course", "book", "education", "tutorial", "learning", "training"]):
         return "education"
-    elif "hotel" in desc or "flight" in desc or "vacation" in desc or "trip" in desc or "travel" in desc:
-        return "travel" 
-    else:
-        return "other"
-
-# Initialize session state if not already initialized
-if 'chat_history' not in st.session_state:
-    st.session_state.chat_history = []
+    
+    # Default to "other" if no category matches
+    return "other"
 
 def toggle_theme():
-    # Toggle theme between light and dark
-    st.session_state.theme = 'light' if st.session_state.theme == 'dark' else 'dark'
-    # Force a rerun to apply theme changes
+    """Toggle between light and dark mode."""
+    if st.session_state.theme == 'light':
+        st.session_state.theme = 'dark'
+    else:
+        st.session_state.theme = 'light'
+    # Rerun the app with the new theme
     st.experimental_rerun()
 
 def main():
-    # Sidebar
+    # Initialize chat history if it doesn't exist
+    if 'chat_history' not in st.session_state:
+        st.session_state.chat_history = []
+    
+    # Sidebar with application controls
     with st.sidebar:
         st.title("💰 SmartSpend")
         st.markdown("AI-powered expense categorization")
         
-        # Theme toggle - ONE SIMPLE BUTTON
+        # Theme toggle button in the same position
         current_theme = st.session_state.theme
         icon = "🌙" if current_theme == 'light' else "☀️"
-        theme_label = "Dark Mode" if current_theme == 'light' else "Light Mode"
+        theme_label = "Switch to Dark Mode" if current_theme == 'light' else "Switch to Light Mode"
         
+        # Custom styled button with clearer purpose
         if st.button(f"{icon} {theme_label}", key="theme_toggle", use_container_width=True):
             toggle_theme()
         
@@ -246,7 +372,7 @@ def main():
         
         # Credits
         st.markdown("---")
-        st.caption("© 2025 SmartSpend #Created by VDA GROUP. Vishwas - 12306388 \n ; Vikram Singh - 12324502 \n Debaprakash Jena - 12316470")
+        st.caption("© 2025 SmartSpend")
 
     # Main Content
     st.title("SmartSpend Assistant")
