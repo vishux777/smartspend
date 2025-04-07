@@ -372,7 +372,7 @@ def main():
         
         # Credits
         st.markdown("---")
-        st.caption("© 2025 SmartSpend \n | Created By: Vishwas 12306388 | Vikram Singh 12324502 | Debaparkash Jena 12316470")
+        st.caption("© 2025 SmartSpend #VK | Created By: Vishwas 12306388 | Vikram Singh 12324502 | Debaparkash Jena 12316470")
 
     # Main Content
     st.title("SmartSpend Assistant")
