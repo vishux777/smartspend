@@ -1,4 +1,4 @@
-Depolyed at : https://smartspendtracker.streamlit.app/ . Copying this project is not allowed. Created by VK.
+Depolyed at : https://smartspendtracker.streamlit.app/  Created by VK.
 # SmartSpend - AI-powered Expense Categorization App
 
 SmartSpend is a Streamlit-based web application that helps users categorize their expenses using AI. It provides an intuitive interface for expense categorization and financial advice.
